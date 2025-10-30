@@ -1,14 +1,11 @@
 .page {
     position: relative;
-    width: 400px;
-    height: 800px;
-    background-color: #333;
+    width: 1000px;
+    height: 700px;
     margin: auto;
     padding: 0;
     display: flex;
     flex-direction: column;
-    & > * {
-        border: 1px solid #aaa;
-        box-sizing: border-box;
-    }
+    background-color: #272727;
+    overflow: hidden;
 }

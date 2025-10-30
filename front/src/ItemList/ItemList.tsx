@@ -16,6 +16,11 @@ const ItemList = () => {
             <Item />
             <Item />
             <Item />
+            <Item />
+            <Item />
+            <Item />
+            <Item />
+            <Item />
         </div>
     );
 };

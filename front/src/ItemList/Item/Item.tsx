@@ -2,24 +2,38 @@ import "./Item.css";
 import { randomColor } from "../../utils/randomColor";
 import { useEffect, useState } from "react";
 import { isChecker } from "../../utils/isChecker";
+import { ItemData } from "../../global";
 
 const Item = () => {
-    const [isChecked, setIsChecked] = useState(false);
-    const [isEditing, setIsEditing] = useState(false);
-    const [bgColor, setBgColor] = useState({ backgroundColor: randomColor() });
+    const itemData: ItemData = {
+        isChecked: false,
+        isEditing: false,
+        text: "text1",
+        bgColor: randomColor(),
+        fontColor: "#fff",
+        logList: [],
+    };
+    const [isChecked, setIsChecked] = useState(itemData.isChecked);
+    const [isEditing, setIsEditing] = useState(itemData.isEditing);
+    const [style, setStyle] = useState({
+        backgroundColor: itemData.bgColor,
+        color: itemData.fontColor,
+    });
+    const [text, setText] = useState(itemData.text);
 
     const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
-        const target = e.target as HTMLElement;
-        isChecker(target) ? setIsChecked((prev) => !prev) : setIsEditing(true);
+        setIsChecked((prev) => !prev);
     };
 
     return (
-        <div className="item" style={bgColor} onClick={handleClick}>
-            <div className="checker"></div>
-            <div className="inner-text">
-                <p className="title">title</p>
-                <p className="last-day">최근 어제</p>
+        <div className="item" style={style}>
+            <div
+                className={`checker ${isChecked && "checked"}`}
+                onClick={handleClick}
+            >
+                {isChecked && <img src="./check_icon.svg" />}
             </div>
+            <p className="text">{text}</p>
         </div>
     );
 };
