@@ -4,20 +4,21 @@ import "./AddModal.css";
 const AddModal = () => {
     return (
         <div className="addModal">
-            <input placeholder="습관명" type="text"></input>
-            <div>
+            <input
+                className="text elem"
+                placeholder="습관명"
+                type="text"
+            ></input>
+            <div className="elem bgColor">
                 <label>배경색</label>
                 <input type="color"></input>
             </div>
-            <div>
+            <div className="elem fgColor">
                 <label>글자색</label>
                 <input type="color"></input>
             </div>
-            <input placeholder="메모" type="text"></input>
-            <div>
-                <label>목표</label>
-                <input type="number"></input>
-            </div>
+            <textarea className="elem comment" placeholder="메모"></textarea>
+            <button className="submitBtn">완료</button>
         </div>
     );
 };

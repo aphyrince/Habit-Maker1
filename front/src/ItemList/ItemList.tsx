@@ -16,6 +16,10 @@ const ItemList = ({
             <Item onItemClick={onItemClick} />
             <Item onItemClick={onItemClick} />
             <Item onItemClick={onItemClick} />
+            <Item onItemClick={onItemClick} />
+            <Item onItemClick={onItemClick} />
+            <Item onItemClick={onItemClick} />
+            <Item onItemClick={onItemClick} />
         </div>
     );
 };
