@@ -1,12 +1,18 @@
 import "./Header.css";
 
-const Header = ({ onAdd }: { onAdd: () => void }) => {
+const Header = ({
+    onAdd,
+    onSetting,
+}: {
+    onAdd: () => void;
+    onSetting: () => void;
+}) => {
     return (
         <div className="header">
-            <p className="date">10월 2일</p>
+            <button className="date">10월 2일</button>
             <div className="menu">
                 <button onClick={onAdd}>추가</button>
-                <button>설정</button>
+                <button onClick={onSetting}>설정</button>
             </div>
         </div>
     );

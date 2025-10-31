@@ -4,23 +4,36 @@ import Footer from "./Footer/Footer";
 import Header from "./Header/Header";
 import ItemList from "./ItemList/ItemList";
 import Modal from "./Modal/Modal";
+import { ItemData, ModalMode } from "./utils/types";
 
 const App = () => {
-    const [editingItem, setEditingItem] = useState(null);
-    const [isEditing, setIsEditing] = useState(false);
+    const [modalMode, setModalMode] = useState<ModalMode>(ModalMode.None);
+    const [focusedItem, setFocusedItem] = useState<ItemData | null>(null);
+    const [itemDataList, setItemDataList] = useState<ItemData[]>([]);
 
     const onAdd = () => {
-        setIsEditing(true);
+        setModalMode(ModalMode.Add);
     };
-    const onCancel = () => {
-        setIsEditing(false);
+    const onSetting = () => {
+        setModalMode(ModalMode.Setting);
+    };
+    const onItemClick = (targetItem: ItemData) => {
+        setFocusedItem(targetItem);
+        setModalMode(ModalMode.DashBoard);
+    };
+    const onModalClose = () => {
+        setModalMode(ModalMode.None);
     };
 
     return (
         <div className="page">
-            <Header onAdd={onAdd} />
-            <Modal isEditing={isEditing} onCancel={onCancel} />
-            <ItemList />
+            <Header onAdd={onAdd} onSetting={onSetting} />
+            <Modal
+                modalMode={modalMode}
+                onModalClose={onModalClose}
+                focusedItem={focusedItem}
+            />
+            <ItemList onItemClick={onItemClick} />
             <Footer />
         </div>
     );

@@ -1,26 +1,21 @@
 import Item from "./Item/Item";
 import "./ItemList.css";
+import { ItemData } from "../utils/types";
 
-const ItemList = () => {
+const ItemList = ({
+    onItemClick,
+}: {
+    onItemClick: (targetItem: ItemData) => void;
+}) => {
     return (
         <div className="list">
-            <Item />
-            <Item />
-            <Item />
-            <Item />
-            <Item />
-            <Item />
-            <Item />
-            <Item />
-            <Item />
-            <Item />
-            <Item />
-            <Item />
-            <Item />
-            <Item />
-            <Item />
-            <Item />
-            <Item />
+            <Item onItemClick={onItemClick} />
+            <Item onItemClick={onItemClick} />
+            <Item onItemClick={onItemClick} />
+            <Item onItemClick={onItemClick} />
+            <Item onItemClick={onItemClick} />
+            <Item onItemClick={onItemClick} />
+            <Item onItemClick={onItemClick} />
         </div>
     );
 };
