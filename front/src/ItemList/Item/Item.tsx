@@ -9,12 +9,14 @@ const Item = ({
     onItemClick: (targetItem: ItemData) => void;
 }) => {
     const itemData: ItemData = {
+        key: "",
         isChecked: false,
         isFocused: false,
         text: "text1",
         bgColor: randomColor(),
         fontColor: "#fff",
         logList: [],
+        comment: "",
     };
     const [isChecked, setIsChecked] = useState(itemData.isChecked);
     const [style, setStyle] = useState({

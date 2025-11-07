@@ -9,7 +9,6 @@ import { ItemData, ModalMode } from "./utils/types";
 const App = () => {
     const [modalMode, setModalMode] = useState<ModalMode>(ModalMode.None);
     const [focusedItem, setFocusedItem] = useState<ItemData | null>(null);
-    const [itemDataList, setItemDataList] = useState<ItemData[]>([]);
 
     const onAdd = () => {
         setModalMode(ModalMode.Add);
