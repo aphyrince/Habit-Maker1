@@ -1,27 +1,26 @@
-import { ItemData, ModalMode } from "../utils/types";
+import { useMode } from "../context/Mode/ModeContext";
+import { ModalMode } from "../utils/types";
 import AddModal from "./AddModal/AddModal";
 import DashBoardModal from "./DashBoardModal/DashBoardModal";
 import "./Modal.css";
 import SettingModal from "./SettingModal/SettingModal";
 
-const Modal = ({
-    modalMode,
-    onModalClose,
-    focusedItem,
-}: {
-    modalMode: ModalMode;
-    onModalClose: () => void;
-    focusedItem: ItemData | null;
-}) => {
+const Modal = () => {
+    const { mode, changeMode } = useMode();
+
+    const handleCloseClick = () => {
+        changeMode(ModalMode.NONE);
+    };
+
     return (
-        <div className={`modal ${modalMode && "activate"}`}>
+        <div className={`modal ${mode !== ModalMode.NONE && "activate"}`}>
             <div className="modalHead">
-                <button onClick={onModalClose}>취소</button>
+                <button onClick={handleCloseClick}>취소</button>
             </div>
             <div className="modalContent">
-                {modalMode === ModalMode.Add && <AddModal />}
-                {modalMode === ModalMode.Setting && <SettingModal />}
-                {modalMode === ModalMode.DashBoard && <DashBoardModal />}
+                {mode === ModalMode.CREATE && <AddModal />}
+                {mode === ModalMode.SETTING && <SettingModal />}
+                {mode === ModalMode.DASHBOARD && <DashBoardModal />}
             </div>
         </div>
     );

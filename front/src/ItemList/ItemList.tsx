@@ -1,26 +1,15 @@
 import Item from "./Item/Item";
 import "./ItemList.css";
-import { ItemData } from "../utils/types";
+import { useItems } from "../context/Items/ItemsContext";
 
-const ItemList = ({
-    onItemClick,
-}: {
-    onItemClick: (targetItem: ItemData) => void;
-}) => {
+const ItemList = () => {
+    const { items } = useItems();
     return (
-        <div className="list">
-            <Item onItemClick={onItemClick} />
-            <Item onItemClick={onItemClick} />
-            <Item onItemClick={onItemClick} />
-            <Item onItemClick={onItemClick} />
-            <Item onItemClick={onItemClick} />
-            <Item onItemClick={onItemClick} />
-            <Item onItemClick={onItemClick} />
-            <Item onItemClick={onItemClick} />
-            <Item onItemClick={onItemClick} />
-            <Item onItemClick={onItemClick} />
-            <Item onItemClick={onItemClick} />
-        </div>
+        <li className="list">
+            {items.map((data) => (
+                <Item key={data.key} data={data} />
+            ))}
+        </li>
     );
 };
 

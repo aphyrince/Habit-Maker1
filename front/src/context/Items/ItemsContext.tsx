@@ -16,7 +16,6 @@ const ItemsContext = createContext<ItemsContextType | null>(null);
 export const ItemsProvider = ({ children }: { children: ReactNode }) => {
     const [items, setItems] = useState<Items>([]);
     const create = (item: ItemData) => {
-        item.key = Date();
         setItems((prev) => [...prev, item]);
     };
     const read = (key: string) => {
@@ -52,4 +51,4 @@ export const ItemsProvider = ({ children }: { children: ReactNode }) => {
     );
 };
 
-export const useItems = () => useContext(ItemsContext);
+export const useItems = () => useContext(ItemsContext) as ItemsContextType;

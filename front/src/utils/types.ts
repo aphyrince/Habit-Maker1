@@ -10,8 +10,8 @@ export interface ItemData {
 }
 
 export enum ModalMode {
-    None,
-    Add,
-    Setting,
-    DashBoard,
+    NONE = "none",
+    CREATE = "create",
+    SETTING = "setting",
+    DASHBOARD = "dashboard",
 }

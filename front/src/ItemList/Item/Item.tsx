@@ -1,50 +1,37 @@
 import "./Item.css";
-import { randomColor } from "../../utils/randomColor";
-import { useEffect, useState } from "react";
-import { ItemData } from "../../utils/types";
+import { ItemData, ModalMode } from "../../utils/types";
+import { useItems } from "../../context/Items/ItemsContext";
+import { useMode } from "../../context/Mode/ModeContext";
 
-const Item = ({
-    onItemClick,
-}: {
-    onItemClick: (targetItem: ItemData) => void;
-}) => {
-    const itemData: ItemData = {
-        key: "",
-        isChecked: false,
-        isFocused: false,
-        text: "text1",
-        bgColor: randomColor(),
-        fontColor: "#fff",
-        logList: [],
-        comment: "",
-    };
-    const [isChecked, setIsChecked] = useState(itemData.isChecked);
-    const [style, setStyle] = useState({
-        backgroundColor: itemData.bgColor,
-        color: itemData.fontColor,
-    });
-    const [text, setText] = useState(itemData.text);
+const Item = ({ data }: { data: ItemData }) => {
+    const { update } = useItems();
+    const { changeMode } = useMode();
 
-    const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
-        setIsChecked((prev) => !prev);
+    const handleCheck = (e: React.MouseEvent<HTMLDivElement>) => {
+        // setIsChecked((prev) => !prev);
+        data.isChecked = !data.isChecked;
+        update(data);
         e.stopPropagation();
     };
 
     return (
         <div
             className="item"
-            style={style}
+            style={{
+                backgroundColor: data.bgColor,
+                color: data.fontColor,
+            }}
             onClick={() => {
-                onItemClick(itemData);
+                changeMode(ModalMode.DASHBOARD);
             }}
         >
             <div
-                className={`checker ${isChecked && "checked"}`}
-                onClick={handleClick}
+                className={`checker ${data.isChecked && "checked"}`}
+                onClick={handleCheck}
             >
-                {isChecked && <img src="./check_icon.svg" />}
+                {data.isChecked && <img src="./check_icon.svg" />}
             </div>
-            <p className="text">{text}</p>
+            <p className="text">{data.text}</p>
         </div>
     );
 };

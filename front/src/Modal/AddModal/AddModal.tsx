@@ -1,10 +1,12 @@
 import React, { ChangeEvent, useCallback, useState } from "react";
 import "./AddModal.css";
-import { ItemData } from "../../utils/types";
+import { ItemData, ModalMode } from "../../utils/types";
 import { randomColor } from "../../utils/randomColor";
+import { useItems } from "../../context/Items/ItemsContext";
+import { useMode } from "../../context/Mode/ModeContext";
 
 const AddModal = () => {
-    const [newItemData, setNewItemData] = useState<ItemData>({
+    const [newItem, setNewItem] = useState<ItemData>({
         key: Date(),
         isChecked: false,
         isFocused: false,
@@ -14,20 +16,27 @@ const AddModal = () => {
         logList: [],
         comment: "",
     });
+    const { create } = useItems();
+    const { changeMode } = useMode();
 
     const handleChange = useCallback(
         (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
             const { name, value } = e.target;
-            setNewItemData((prev) => ({ ...prev, [name]: value }));
+            setNewItem((prev) => ({ ...prev, [name]: value }));
         },
         []
     );
+
+    const handleSubmit = () => {
+        create(newItem);
+        changeMode(ModalMode.NONE);
+    };
 
     return (
         <div className="addModal">
             <input
                 name="text"
-                value={newItemData.text}
+                value={newItem.text}
                 onChange={handleChange}
                 className="text elem"
                 placeholder="습관명"
@@ -37,7 +46,7 @@ const AddModal = () => {
                 <label>배경색</label>
                 <input
                     name="bgColor"
-                    value={newItemData.bgColor}
+                    value={newItem.bgColor}
                     onChange={handleChange}
                     type="color"
                 ></input>
@@ -46,19 +55,21 @@ const AddModal = () => {
                 <label>글자색</label>
                 <input
                     name="fontColor"
-                    value={newItemData.fontColor}
+                    value={newItem.fontColor}
                     onChange={handleChange}
                     type="color"
                 ></input>
             </div>
             <textarea
                 name="comment"
-                value={newItemData.comment}
+                value={newItem.comment}
                 onChange={handleChange}
                 className="elem comment"
                 placeholder="메모"
             ></textarea>
-            <button className="submitBtn">완료</button>
+            <button className="submitBtn" onClick={handleSubmit}>
+                완료
+            </button>
         </div>
     );
 };
