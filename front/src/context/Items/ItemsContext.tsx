@@ -14,7 +14,17 @@ type ItemsContextType = {
 const ItemsContext = createContext<ItemsContextType | null>(null);
 
 export const ItemsProvider = ({ children }: { children: ReactNode }) => {
-    const [items, setItems] = useState<Items>([]);
+    const sampleItem: ItemData = {
+        key: "habit1",
+        isChecked: true,
+        isFocused: false,
+        text: "아침 스트레칭",
+        bgColor: "#FFD700",
+        fontColor: "#222222",
+        logList: ["2025-11-01", "2025-11-02", "2025-11-05"],
+        comment: "꾸준히 하면 허리가 덜 아파짐!",
+    };
+    const [items, setItems] = useState<Items>([sampleItem]);
     const create = (item: ItemData) => {
         setItems((prev) => [...prev, item]);
     };

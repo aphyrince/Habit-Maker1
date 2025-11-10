@@ -1,8 +1,8 @@
 import "./App.css";
-import Footer from "./Footer/Footer";
-import Header from "./Header/Header";
-import ItemList from "./ItemList/ItemList";
-import Modal from "./Modal/Modal";
+import Footer from "./components/Footer/Footer";
+import Header from "./components/Header/Header";
+import ItemList from "./components/ItemList/ItemList";
+import Modal from "./components/Modal/Modal";
 
 const App = () => {
     return (
