@@ -1,0 +1,49 @@
+.addModal {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    padding: 20px;
+    gap: 20px;
+    .elem {
+        width: 80%;
+        height: 50px;
+        padding: 5px;
+    }
+    .text,
+    .comment {
+        font-size: 1.5em;
+        font-weight: 600;
+        background-color: rgba(255, 255, 255, 0.493);
+        border-radius: 10px;
+        border: none;
+    }
+    .bgColor,
+    .fgColor {
+        display: flex;
+        justify-content: start;
+        align-items: center;
+        width: fit-content;
+        background-color: rgba(255, 255, 255, 0.39);
+        border-radius: 10px;
+        gap: 20px;
+        & > label {
+            font-size: 1.5em;
+            font-weight: 600;
+        }
+        & > input {
+            border: none;
+            background-color: rgba(0, 0, 0, 0);
+            width: 30px;
+            height: 30px;
+            border-radius: 15px;
+        }
+    }
+    .comment {
+        height: 200px;
+        display: flex;
+        justify-content: start;
+        align-items: start;
+    }
+}
