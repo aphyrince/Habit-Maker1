@@ -1,4 +1,10 @@
-import { createContext, useContext, useState, ReactNode } from "react";
+import {
+    createContext,
+    useContext,
+    useState,
+    ReactNode,
+    useEffect,
+} from "react";
 import { ItemData } from "../../utils/types";
 
 type Items = ItemData[];
@@ -14,20 +20,28 @@ type ItemsContextType = {
 const ItemsContext = createContext<ItemsContextType | null>(null);
 
 export const ItemsProvider = ({ children }: { children: ReactNode }) => {
-    const sampleItem: ItemData = {
-        key: "habit1",
-        isChecked: true,
-        isFocused: false,
-        text: "아침 스트레칭",
-        bgColor: "#FFD700",
-        fontColor: "#222222",
-        logList: ["2025-11-01", "2025-11-02", "2025-11-05"],
-        comment: "꾸준히 하면 허리가 덜 아파짐!",
+    const [items, setItems] = useState<Items>([]);
+
+    const saveData = (data: ItemData[]) => {
+        window.store.save(data);
     };
-    const [items, setItems] = useState<Items>([sampleItem]);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            const result = await window.store.read();
+            setItems(result);
+        };
+        fetchData();
+    }, []);
+
     const create = (item: ItemData) => {
-        setItems((prev) => [...prev, item]);
+        setItems((prev) => {
+            const newItems = [...prev, item];
+            saveData(newItems);
+            return newItems;
+        });
     };
+
     const read = (key: string) => {
         return items.find((item) => item.key === key);
     };
@@ -35,14 +49,20 @@ export const ItemsProvider = ({ children }: { children: ReactNode }) => {
         return items;
     };
     const update = (updatedItem: ItemData) => {
-        setItems([
-            ...items.map((item) =>
+        setItems((prev) => {
+            const newItems = prev.map((item) =>
                 item.key === updatedItem.key ? updatedItem : item
-            ),
-        ]);
+            );
+            saveData(newItems);
+            return newItems;
+        });
     };
     const remove = (key: string) => {
-        setItems([...items.filter((items) => items.key !== key)]);
+        setItems((prev) => {
+            const newItems = prev.filter((item) => item.key !== key);
+            saveData(newItems);
+            return newItems;
+        });
     };
 
     return (
