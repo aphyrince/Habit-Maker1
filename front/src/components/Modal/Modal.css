@@ -6,7 +6,8 @@
     background-color: rgba(83, 83, 83, 0.205);
     backdrop-filter: blur(15px);
     transform: translateX(-100%);
-    transition: 0.3s ease;
+    transition: all 0.5s cubic-bezier(0.19, 1, 0.22, 1);
+
     &.activate {
         transform: translateX(0);
     }
@@ -41,5 +42,8 @@
     & > .modalContent {
         width: 100%;
         height: 550px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
     }
 }

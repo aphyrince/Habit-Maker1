@@ -1,4 +1,3 @@
-import { useItems } from "../../context/Items/ItemsContext";
 import { useMode } from "../../context/Mode/ModeContext";
 import { useSelect } from "../../context/Select/SelectContext";
 import { ModalMode } from "../../utils/types";
@@ -9,7 +8,6 @@ import SettingModal from "./SettingModal/SettingModal";
 
 const Modal = () => {
     const { mode, changeMode } = useMode();
-    const { items } = useItems();
     const { selected } = useSelect();
 
     const handleCloseClick = () => {

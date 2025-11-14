@@ -41,7 +41,6 @@ const DashBoardModal = ({ item }: { item: ItemData }) => {
                 count,
             });
         }
-        data.forEach((elem) => console.log(elem));
 
         return data;
     }, [item.logList, currentMonth]);

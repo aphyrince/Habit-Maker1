@@ -3,5 +3,7 @@ export const randomColor = () => {
     const green = Math.floor(Math.random() * 155 + 50);
     const blue = Math.floor(Math.random() * 155 + 50);
 
-    return `rgb(${red}, ${green}, ${blue})`;
+    const toHex = (value: number) => value.toString(16).padStart(2, "0");
+
+    return `#${toHex(red)}${toHex(green)}${toHex(blue)}`;
 };
