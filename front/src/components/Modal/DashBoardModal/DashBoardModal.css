@@ -15,6 +15,20 @@
     font-size: 2em;
 }
 
+.modal-status {
+    font-size: larger;
+    font-weight: 600;
+    padding: 5px 10px;
+    border-radius: 5px;
+    &.status-done {
+        background-color: rgb(60, 255, 0);
+    }
+    &.status-progress {
+        background-color: rgba(0, 0, 0, 0.151);
+        color: rgba(0, 0, 0, 0.603);
+    }
+}
+
 .modal-section {
     width: 350px;
     background-color: rgba(255, 255, 255, 0.74);
@@ -35,4 +49,17 @@
 .chart-wrapper {
     width: 90%;
     background-color: white;
+}
+
+.comment-edit-box {
+    display: flex;
+    justify-content: center;
+    align-items: end;
+    gap: 10px;
+}
+
+.comment-save-btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
