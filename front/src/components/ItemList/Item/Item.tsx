@@ -2,6 +2,7 @@ import { useItems } from "../../../context/Items/ItemsContext";
 import { useMode } from "../../../context/Mode/ModeContext";
 import { useSelect } from "../../../context/Select/SelectContext";
 import { ItemData, ModalMode } from "../../../utils/types";
+import { CheckCircleIcon } from "lucide-react";
 import "./Item.css";
 
 const Item = ({ data }: { data: ItemData }) => {
@@ -10,9 +11,18 @@ const Item = ({ data }: { data: ItemData }) => {
     const { setSelected } = useSelect();
 
     const handleCheck = (e: React.MouseEvent<HTMLDivElement>) => {
-        // setIsChecked((prev) => !prev);
         data.isChecked = !data.isChecked;
-        update(data);
+        if (data.isChecked) {
+            data.logList.push(new Date().toDateString());
+            update(data);
+        } else {
+            const today = new Date().toDateString();
+            data.logList = data.logList.filter((log) => {
+                const day = new Date(log).toDateString();
+                return day !== today;
+            });
+            update(data);
+        }
         e.stopPropagation();
     };
 
@@ -32,7 +42,7 @@ const Item = ({ data }: { data: ItemData }) => {
                 className={`checker ${data.isChecked && "checked"}`}
                 onClick={handleCheck}
             >
-                {data.isChecked && <img src="./check_icon.svg" />}
+                {data.isChecked && <CheckCircleIcon size={"50px"} />}
             </div>
             <p className="text">{data.text}</p>
         </div>
