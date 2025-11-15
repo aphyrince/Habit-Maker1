@@ -1,6 +1,6 @@
 import "./DashBoardModal.css";
 import { useCallback, useMemo, useState } from "react";
-import { ItemData } from "../../../utils/types";
+import { ItemData, ModalMode } from "../../../utils/types";
 import {
     Bar,
     BarChart,
@@ -11,6 +11,7 @@ import {
 } from "recharts";
 import { Save } from "lucide-react";
 import { useItems } from "../../../context/Items/ItemsContext";
+import { useMode } from "../../../context/Mode/ModeContext";
 
 const DashBoardModal = ({ item }: { item: ItemData }) => {
     const [commentText, setCommentText] = useState<string>(item.comment);
@@ -19,7 +20,8 @@ const DashBoardModal = ({ item }: { item: ItemData }) => {
         const today = new Date();
         return new Date(today.getFullYear(), today.getMonth(), 1);
     });
-    const { update } = useItems();
+    const { update, remove } = useItems();
+    const { changeMode } = useMode();
 
     const chartData = useMemo(() => {
         const year = currentMonth.getFullYear();
@@ -50,6 +52,11 @@ const DashBoardModal = ({ item }: { item: ItemData }) => {
         item = { ...item, comment: commentText };
         update(item);
     }, [item.comment, commentText]);
+
+    const handleDelete = useCallback(() => {
+        remove(item.key);
+        changeMode(ModalMode.NONE);
+    }, [item.key]);
 
     const handleMonthChange = (offset: number) => {
         setCurrentMonth((prev) => {
@@ -133,6 +140,7 @@ const DashBoardModal = ({ item }: { item: ItemData }) => {
                     </div>
                 )}
             </div>
+            <button onClick={handleDelete}>삭제</button>
         </div>
     );
 };
